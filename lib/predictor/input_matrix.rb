@@ -33,7 +33,7 @@ module Predictor
 
           items.each do |item|
             # add the set to the item's set--inverting the sets
-            redis.sadd(redis_key(:sets, item), set)
+            redis.sadd?(redis_key(:sets, item), set)
           end
         end
       end
