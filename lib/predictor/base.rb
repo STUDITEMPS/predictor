@@ -279,7 +279,7 @@ module Predictor::Base
   end
 
   def delete_item!(item)
-    Predictor.redis.srem(redis_key(:all_items), item)
+    Predictor.redis.srem?(redis_key(:all_items), item)
     Predictor.redis.watch(redis_key(:similarities, item)) do
       items = related_items(item)
       Predictor.redis.multi do |multi|
