@@ -222,7 +222,7 @@ module Predictor::Base
           item_keys = Predictor.redis.smembers(k).map { |set| matrix.redis_key(:items, set) }
 
           counts = Predictor.redis.multi do |multi|
-            item_keys.each { |key| Predictor.redis.scard(key) }
+            item_keys.each { |key| multi.scard(key) }
           end
 
           item_keys.zip(counts).each do |key, count|
