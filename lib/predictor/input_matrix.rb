@@ -33,7 +33,7 @@ module Predictor
 
           items.each do |item|
             # add the set to the item's set--inverting the sets
-            redis.sadd(redis_key(:sets, item), set)
+            redis.sadd?(redis_key(:sets, item), set)
           end
         end
       end
@@ -42,8 +42,8 @@ module Predictor
     # Delete a specific relationship
     def remove_from_set(set, item)
       Predictor.redis.multi do |redis|
-        redis.srem(redis_key(:items, set), item)
-        redis.srem(redis_key(:sets, item), set)
+        redis.srem?(redis_key(:items, set), item)
+        redis.srem?(redis_key(:sets, item), set)
       end
     end
 
@@ -75,7 +75,7 @@ module Predictor
         sets = Predictor.redis.smembers(redis_key(:sets, item))
         Predictor.redis.multi do |multi|
           sets.each do |set|
-            multi.srem(redis_key(:items, set), item)
+            multi.srem?(redis_key(:items, set), item)
           end
 
           multi.del redis_key(:sets, item)
