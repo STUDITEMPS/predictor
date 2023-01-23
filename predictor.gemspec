@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description = s.summary = "Fast and efficient recommendations and predictions using Redis"
   s.licenses    = ["MIT"]
 
-  s.add_dependency "redis", "~> 4.8"
+  s.add_dependency "redis", ">= 4.8", "< 6.0"
 
   s.add_development_dependency "rspec", ">= 3.4.0"
   s.add_development_dependency "rake", ">= 11.0"
